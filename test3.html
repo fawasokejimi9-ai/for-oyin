@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Oyin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #2b0000 0%, #000000 100%); /* Red/Black Love Galaxy */
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* The Stars */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 5px white; }
+            100% { opacity: 0.2; transform: scale(0.8); }
+        }
+
+        /* Container for the content */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .text-box {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            min-height: 150px;
+            margin-bottom: 20px;
+            white-space: pre-wrap; /* Keeps the line breaks */
+        }
+
+        .question {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff4d4d;
+            margin-bottom: 30px;
+            opacity: 0; /* Hidden initially */
+            transition: opacity 1s ease-in;
+        }
+
+        .buttons {
+            display: none; /* Hidden initially */
+            gap: 20px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-yes {
+            background-color: #ff4d4d;
+            color: white;
+            box-shadow: 0 0 15px #ff4d4d;
+        }
+
+        .btn-yes:hover {
+            background-color: #ff1a1a;
+            transform: scale(1.1);
+        }
+
+        .btn-no {
+            background-color: #333;
+            color: white;
+        }
+
+        .btn-no:hover {
+            background-color: #555;
+            transform: scale(1.1);
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none; /* Hidden initially */
+        }
+
+        .final-message {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        for (let i = 0; i < 150; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            document.body.appendChild(star);
+        }
+    </script>
+
+    <div class="container" id="main-container">
+        <img id="intro-gif" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHpsY21kenF5NTFlY29yZDVoaWk3MHNxcGdjN3E2eDVlajBva3JzcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KB0F32RVjSZLpPlNbL/giphy.gif" width="80" style="display:none; margin: 0 auto 20px auto;">
+        
+        <div class="text-box" id="text-box"></div>
+        <div class="question" id="question">Will you be my girlfriend?</div>
+        
+        <div class="buttons" id="buttons">
+            <button class="btn-yes" onclick="answerYes()">Yes</button>
+            <button class="btn-no" onclick="answerNo()">No</button>
+        </div>
+
+        <div class="gif-container" id="gif-container">
+            <img id="cupid-gif" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2U3OGJzcDZmeHNzaXFwNmNwcHhwb2xjcXRweDh4YjJlYXN6ZmJqOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bDr2n9RpIIvAW6BtbT/giphy.gif" alt="Cupid Arrow">
+            <div id="final-text" class="final-message"></div>
+            <div class="gif-container2" id="gif-container2">
+                 <img id="NO-gif" src= "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmowa3YyZjQ3MHhrbnRrb2w0bGd2MjExNTd5OGI1aGcwNWwxOGZ0MCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/pynZagVcYxVUk/giphy.gif" alt="heart-break">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const messages = [
+            "Hey Oyin...",
+            "Talking to you has become one of my favorite parts of the day 😊\nSomehow you always make me smile without even trying.\nI really like you, and I think it’s time I say it properly."
+        ];
+
+        let msgIndex = 0;
+        let charIndex = 0;
+        const textBox = document.getElementById("text-box");
+        const introGif = document.getElementById("intro-gif");
+
+        function typeWriter() {
+            introGif.style.display = "block"; // Show little intro love graphic
+
+            if (msgIndex < messages.length) {
+                if (charIndex < messages[msgIndex].length) {
+                    textBox.innerHTML += messages[msgIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriter, 50); // Typing speed
+                } else {
+                    // Wait 1.5 seconds before typing the next message
+                    setTimeout(() => {
+                        textBox.innerHTML = ""; // Clear text for next message
+                        charIndex = 0;
+                        msgIndex++;
+                        typeWriter();
+                    }, 1500);
+                }
+            } else {
+                // Done typing all messages, show the big question and buttons
+                setTimeout(() => {
+                    document.getElementById("question").style.opacity = 1;
+                    document.getElementById("buttons").style.display = "flex";
+                }, 500);
+            }
+        }
+
+        // Start the typing effect when the page loads
+        window.onload = () => {
+            setTimeout(typeWriter, 1000); // 1 second delay before starting
+        };
+
+        // If she clicks YES
+        function answerYes() {
+            document.getElementById("text-box").style.display = "none";
+            document.getElementById("question").style.display = "none";
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("intro-gif").style.display = "none";
+            
+            const cupidGif = document.getElementById("cupid-gif");
+            const finalText = document.getElementById("final-text");
+
+            cupidGif.style.display = "inline-block";
+            finalText.innerHTML = "💜 💘 <br><span style='font-size: 1.5rem; font-weight: normal;'>I knew you'd say yes!</span>";
+        }
+
+        // If she clicks NO
+        function answerNo() {
+            document.getElementById("text-box").style.display = "none";
+            document.getElementById("question").style.display = "none";
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("intro-gif").style.display = "none";
+
+            const NOgif = document.getElementById("NO-gif");
+            const finalText = document.getElementById("final-text");
+
+            // Added logic to show the sad GIF and message
+            NOgif.style.display = "inline-block";
+            finalText.innerHTML = "💔 <br><span style='font-size: 1.5rem; font-weight: normal;'>That's okay, maybe next time?</span>";
+        }
+    </script>
+</body>
+</html>
