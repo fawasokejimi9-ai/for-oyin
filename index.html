@@ -165,15 +165,15 @@
                 if (charIndex < messages[msgIndex].length) {
                     textBox.innerHTML += messages[msgIndex].charAt(charIndex);
                     charIndex++;
-                    setTimeout(typeWriter, 50); // Typing speed
+                    setTimeout(typeWriter, 30); // Typing speed
                 } else {
-                    // Wait 1.5 seconds before typing the next message
+                    
                     setTimeout(() => {
                         textBox.innerHTML = ""; // Clear text for next message
                         charIndex = 0;
                         msgIndex++;
                         typeWriter();
-                    }, 1500);
+                    }, 2000);
                 }
             } else {
                 // Done typing all messages, show the big question and buttons
@@ -186,7 +186,7 @@
 
         // Start the typing effect when the page loads
         window.onload = () => {
-            setTimeout(typeWriter, 1500); // 1 second delay before starting
+            setTimeout(typeWriter, 2000);
         };
 
         // If she clicks YES
